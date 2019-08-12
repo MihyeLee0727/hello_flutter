@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FriendlychatApp extends StatelessWidget {
+class FriendlychatRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ChatScreen(),
-    );
+    return ChatScreen();
   }
 }
 
@@ -21,12 +19,16 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   void _handleSubmitted(String text) {
     if (text.isNotEmpty) {
       _textEditingController.clear();
+      AnimationController animationController = AnimationController(
+          vsync: this, duration: Duration(milliseconds: 500)
+      );
+
       ChatMessage msg = ChatMessage(
           text,
-          AnimationController(
-              vsync: this, duration: Duration(milliseconds: 200)
-          )
+          animationController,
+          Tween(begin: 0.0, end: 1.0).animate(animationController)
       );
+
       setState(() => _messages.insert(0, msg));
       msg.animationController.forward();
     }
@@ -96,16 +98,16 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 }
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage(this.text, this.animationController);
+  ChatMessage(this.text, this.animationController, this.animation);
   final String text;
   final String _name = 'tempName';
   final AnimationController animationController;
+  final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      sizeFactor: CurvedAnimation(parent: animationController, curve: Curves.easeIn),
-      axisAlignment: 0.0,
+    return FadeTransition(
+      opacity: animation,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
