@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/pageView.dart';
+import 'package:rxdart/rxdart.dart';
 import 'codelab1.dart';
 import 'helloFlutter.dart';
 
@@ -27,8 +29,8 @@ class HelloFlutterApp extends StatelessWidget {
             (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => FriendlychatRoute())))
     );
     items.add(MainGridItem("network", _handleTodo));
-    items.add(MainGridItem("animation1", _handleTodo));
-    items.add(MainGridItem("PageView", _handleTodo));
+    items.add(MainGridItem("PageView",
+        (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => PageViewRoute()))));
     return items;
   }
   
