@@ -8,38 +8,27 @@ void main() => runApp(
   )
 );
 
-enum RouteType {
-  HelloFlutter,
-  CodeLab1,
-  Network,
-  Animation1,
-}
-
 class HelloFlutterApp extends StatelessWidget {
 
-  void _handleCardTap(RouteType type, BuildContext context) {
-    switch(type) {
-      case RouteType.HelloFlutter: {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => MyRoute()));
-      } break;
-      case RouteType.CodeLab1: {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => FriendlychatRoute()));
-      } break;
-      case RouteType.Animation1:
-      case RouteType.Network: {
-        var snackbar = SnackBar(content: Text("TODO : ${type.toString()}"), duration: Duration(seconds: 2));
-        Scaffold.of(context).removeCurrentSnackBar();
-        Scaffold.of(context).showSnackBar(snackbar);
-      } break;
-    }
+  void _handleTodo(BuildContext context) {
+    var snackbar = SnackBar(content: Text("TODO"), duration: Duration(seconds: 2));
+    Scaffold.of(context).removeCurrentSnackBar();
+    Scaffold.of(context).showSnackBar(snackbar);
   }
   
   List<MainGridItem> _buildCard() {
     var items = <MainGridItem>[];
-    items.add(MainGridItem("hello flutter", RouteType.HelloFlutter, _handleCardTap));
-    items.add(MainGridItem("code lab : chat", RouteType.CodeLab1, _handleCardTap));
-    items.add(MainGridItem("network", RouteType.Network, _handleCardTap));
-    items.add(MainGridItem("animation1", RouteType.Animation1, _handleCardTap));
+    items.add(
+        MainGridItem("hello flutter",
+            (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => MyRoute())))
+    );
+    items.add(
+        MainGridItem("code lab : chat",
+            (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => FriendlychatRoute())))
+    );
+    items.add(MainGridItem("network", _handleTodo));
+    items.add(MainGridItem("animation1", _handleTodo));
+    items.add(MainGridItem("PageView", _handleTodo));
     return items;
   }
   
@@ -70,11 +59,10 @@ class MainGrid extends StatelessWidget {
 }
 
 class MainGridItem extends StatelessWidget {
-  MainGridItem(this.text, this.type, this.handleTap);
+  MainGridItem(this.text, this.handleTap);
 
   final Function handleTap;
   final String text;
-  final RouteType type;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +74,7 @@ class MainGridItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         child: InkWell(
           borderRadius: BorderRadius.circular(8.0),
-          onTap: () => handleTap(type, context),
+          onTap: () => handleTap(context),
           child: Container(
             padding: EdgeInsets.all(12.0),
             child: Text(
