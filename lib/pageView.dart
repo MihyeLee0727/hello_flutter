@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'codelab1.dart';
-import 'helloFlutter.dart';
-
 class PageViewRoute extends StatelessWidget {
 
   final List<Widget> _items = <Widget>[];
   PageViewRoute() {
-    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: MyRoute()));
-    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: FriendlychatRoute()));
-    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: Center(child: Text("text")), color: Colors.indigo));
+    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: Center(child: Text("111111")), color: Colors.red));
+    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: Center(child: Text("222222")), color: Colors.green));
+    _items.add(Container(margin: EdgeInsets.symmetric(horizontal: 8.0), child: Center(child: Text("333333")), color: Colors.indigo));
   }
 
   void _onPageChanged(int index) {

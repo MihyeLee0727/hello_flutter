@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pageView.dart';
 import 'package:rxdart/rxdart.dart';
+import 'carousel.dart';
 import 'codelab1.dart';
 import 'helloFlutter.dart';
 
@@ -31,6 +32,8 @@ class HelloFlutterApp extends StatelessWidget {
     items.add(MainGridItem("network", _handleTodo));
     items.add(MainGridItem("PageView",
         (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => PageViewRoute()))));
+    items.add(MainGridItem("infinite PageView",
+        (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => CarouselRoute()))));
     return items;
   }
   
