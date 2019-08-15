@@ -4,46 +4,54 @@ import 'package:rxdart/rxdart.dart';
 import 'carousel.dart';
 import 'codelab1.dart';
 import 'helloFlutter.dart';
+import 'network.dart';
+import 'animation.dart';
 
-void main() => runApp(
-  MaterialApp(
-    home: HelloFlutterApp()
-  )
-);
+void main() => runApp(MaterialApp(home: HelloFlutterApp()));
 
 class HelloFlutterApp extends StatelessWidget {
-
   void _handleTodo(BuildContext context) {
-    var snackbar = SnackBar(content: Text("TODO"), duration: Duration(seconds: 2));
+    var snackbar =
+        SnackBar(content: Text("TODO"), duration: Duration(seconds: 2));
     Scaffold.of(context).removeCurrentSnackBar();
     Scaffold.of(context).showSnackBar(snackbar);
   }
-  
+
   List<MainGridItem> _buildCard() {
     var items = <MainGridItem>[];
-    items.add(
-        MainGridItem("hello flutter",
-            (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => MyRoute())))
-    );
-    items.add(
-        MainGridItem("code lab : chat",
-            (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => FriendlychatRoute())))
-    );
-    items.add(MainGridItem("network", _handleTodo));
-    items.add(MainGridItem("PageView",
-        (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => PageViewRoute()))));
-    items.add(MainGridItem("infinite PageView",
-        (context) => Navigator.push(context, MaterialPageRoute(builder: (_) => CarouselRoute()))));
+    items.add(MainGridItem(
+        "hello flutter",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => MyRoute()))));
+    items.add(MainGridItem(
+        "code lab : chat",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => FriendlychatRoute()))));
+    items.add(MainGridItem(
+        "network",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => NetworkRoute()))));
+    items.add(MainGridItem(
+        "PageView",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => PageViewRoute()))));
+    items.add(MainGridItem(
+        "infinite PageView",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => CarouselRoute()))));
+    items.add(MainGridItem(
+        "animation",
+        (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => AnimationRoute()))));
+    items.add(MainGridItem("TODO", _handleTodo));
     return items;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(8.0),
-        child: MainGrid(_buildCard())
-      ),
+          padding: EdgeInsets.all(8.0), child: MainGrid(_buildCard())),
     );
   }
 }
@@ -56,10 +64,10 @@ class MainGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemCount: items.length,
-      itemBuilder: (_, index) => items[index]
-    );
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemCount: items.length,
+        itemBuilder: (_, index) => items[index]);
   }
 }
 
@@ -80,12 +88,7 @@ class MainGridItem extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(8.0),
           onTap: () => handleTap(context),
-          child: Container(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-                text
-            )
-          ),
+          child: Container(padding: EdgeInsets.all(12.0), child: Text(text)),
         ),
       ),
     );
