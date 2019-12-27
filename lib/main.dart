@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'carousel.dart';
 import 'codelab1.dart';
 import 'helloFlutter.dart';
-import 'network.dart';
+import 'network/network.dart';
 import 'animation.dart';
 
 void main() => runApp(MaterialApp(home: HelloFlutterApp()));
