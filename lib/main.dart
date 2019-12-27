@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/codelab/writeYourFirstFlutterApp.dart';
 import 'package:hello_flutter/pageView.dart';
 import 'package:rxdart/rxdart.dart';
 import 'carousel.dart';
@@ -43,6 +44,10 @@ class HelloFlutterApp extends StatelessWidget {
         "animation",
         (context) => Navigator.push(
             context, MaterialPageRoute(builder: (_) => AnimationRoute()))));
+    items.add(MainGridItem(
+        "CodeLab : Write Your First Flutter App",
+            (context) => Navigator.push(
+            context, MaterialPageRoute(builder: (_) => WriteYourFirstFlutterAppRoute()))));
     items.add(MainGridItem("TODO", _handleTodo));
     return items;
   }
