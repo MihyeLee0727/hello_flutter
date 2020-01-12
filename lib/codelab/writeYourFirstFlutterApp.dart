@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:hello_flutter/codelab/savedWords.dart';
 
 class WriteYourFirstFlutterAppRoute extends StatelessWidget {
+  final SaveWordBloc _bloc = SaveWordBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('CodeLab : WYFFA'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.list),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => SavedWordsRoute(_bloc)))),
+        ],
       ),
       body: Center(
-        child: RandomWords(),
+        child: RandomWords(_bloc),
       ),
     );
   }
@@ -17,14 +26,29 @@ class WriteYourFirstFlutterAppRoute extends StatelessWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final List<WordPair> _suggestions = <WordPair>[];
+
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
 
   Widget _buildRow(WordPair pair) {
+    final bool alreadySaved = widget._bloc.hasWord(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
+            widget._bloc.removeWord(pair);
+          } else {
+            widget._bloc.addWord(pair);
+          }
+        });
+      },
     );
   }
 
@@ -51,6 +75,10 @@ class RandomWordsState extends State<RandomWords> {
 }
 
 class RandomWords extends StatefulWidget {
+  final SaveWordBloc _bloc;
+
+  RandomWords(this._bloc);
+
   @override
   RandomWordsState createState() => RandomWordsState();
 }
