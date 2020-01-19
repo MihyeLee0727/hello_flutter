@@ -37,26 +37,19 @@ class SignInDemoState extends State<SignInDemo> {
   }
 
   Future<void> _handleSignIn(Function successCallback) async {
-    _googleSignIn.signIn().then((result) {
-      result.authentication.then((googleKey) {
-        successCallback(googleKey.accessToken);
-        print(googleKey.accessToken);
-        print(googleKey.idToken);
+    _googleSignIn.signIn().then((account) {
+      account.authentication.then((auth) {
+        if (auth.idToken != null) {
+          successCallback(auth.idToken);
+        }
+        print("acceToken : ${auth.accessToken}");
+        print("idToken : ${auth.idToken}");
       }).catchError((err) {
         print(err);
       });
     }).catchError((err) {
       print(err);
     });
-
-//    try {
-//      GoogleSignInAccount account = await _googleSignIn.signIn();
-//      GoogleSignInAuthentication auth = await account.authentication;
-//      successCallback(auth.idToken);
-//    } catch (error) {
-//      print(error);
-//      successCallback(error);
-//    }
   }
 
   Future<void> _handleSignOut() => _googleSignIn.disconnect();

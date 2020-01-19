@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/codelab/writeYourFirstFlutterApp.dart';
 import 'package:hello_flutter/pageView.dart';
-import 'package:hello_flutter/signin/SignIn.dart';
+import 'package:hello_flutter/signin/SignInGoogle.dart';
 import 'package:rxdart/rxdart.dart';
 import 'carousel.dart';
 import 'codelab1.dart';
@@ -50,7 +50,7 @@ class HelloFlutterApp extends StatelessWidget {
             (context) => Navigator.push(
             context, MaterialPageRoute(builder: (_) => WriteYourFirstFlutterAppRoute()))));
     items.add(MainGridItem(
-        "SignIn",
+        "SignIn Google",
             (context) => Navigator.push(
             context, MaterialPageRoute(builder: (_) => SignInRoute()))));
     items.add(MainGridItem("TODO", _handleTodo));
